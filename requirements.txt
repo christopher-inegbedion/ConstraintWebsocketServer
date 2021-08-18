@@ -1,0 +1,3 @@
+git+https://github.com/christopher-inegbedion/Task.git@dev#egg=taskr-task
+git+https://github.com/christopher-inegbedion/ConstraintsStagesPy.git@model-admin-section#egg=constraints-stages
+gunicorn
