@@ -40,3 +40,4 @@ Werkzeug==1.0.1
 whitenoise==5.3.0
 git+https://github.com/christopher-inegbedion/Task.git@dev#egg=taskr-task
 git+https://github.com/christopher-inegbedion/ConstraintsStagesPy.git@model-admin-section#egg=constraints-stages
+git+https://github.com/christopher-inegbedion/ConstraintModels.git@master#egg=ConstraintModels

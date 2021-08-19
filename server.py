@@ -1,12 +1,12 @@
 import asyncio
 import os
-from delivery1_model import DeliveryModel
-from chat_model import ChatModel
+from constraint_models.delivery1_model import DeliveryModel
+from constraint_models.chat_model import ChatModel
 import json
-from time_range_model import TimeRangeModel
-from password_model import PasswordModel
-from product_link_model import ProductLinkModel
-from order_product_model import OrderProductModel
+from constraint_models.time_range_model import TimeRangeModel
+from constraint_models.password_model import PasswordModel
+from constraint_models.product_link_model import ProductLinkModel
+from constraint_models.order_product_model import OrderProductModel
 import threading
 from constraints.constraint_main.constraint import Constraint
 from constraints.enums.input_type import InputType
@@ -17,9 +17,9 @@ import jsonpickle
 from stage.stage import Stage, StageGroup
 from task_main.task import Task
 from task_pipeline.pipeline import Pipeline
-from internet_model import InternetModel
+from constraint_models.internet_model import InternetModel
 from constraints.constraint_main.custom_constraint import CustomConstraint
-from product_description_model import ProductDescriptionModel
+from constraint_models.product_description_model import ProductDescriptionModel
 import websockets
 import nest_asyncio
 from rich.traceback import install
@@ -177,7 +177,7 @@ async def update_complete_users_count(task_id, user_id):
 
 def get_constraint_config_inputs(constraint_name, stage_name, stage_group_id):
     stage_data = perform_network_action(
-        "http://localhost:8000/stage_group/"+stage_group_id + "/"+stage_name, "get")
+        "http://constraint-rest-server.herokuapp.com:8000/stage_group/"+stage_group_id + "/"+stage_name, "get")
     all_constraints = stage_data["constraints"]
     for constraint in all_constraints:
         if constraint["constraint_name"] == constraint_name:
@@ -202,7 +202,7 @@ async def launch(websocket, path):
             print(f"Creating new pipeline instance for user: {user_id}")
             # Get the task's details from the DB
             task_data = perform_network_action(
-                "http://localhost:8000/task/"+task_id, "get")
+                "http://constraint-rest-server.herokuapp.com:8000/task/"+task_id, "get")
             task_name = task_data["name"]
             task_desc = task_data["desc"]
             stage_group_id = task_data["stage_group_id"]
@@ -211,7 +211,7 @@ async def launch(websocket, path):
                 try:
                     new_task = Task(task_name, task_desc)
                     stage_group_data = perform_network_action(
-                        "http://localhost:8000/stage_group/"+stage_group_id, "get")
+                        "http://constraint-rest-server.herokuapp.com:8000/stage_group/"+stage_group_id, "get")
                     print("Stage group details retrieved from database...")
                     new_stage_groups = StageGroup()
                     stages = stage_group_data["stages"]
