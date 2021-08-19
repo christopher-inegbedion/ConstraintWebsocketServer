@@ -1,4 +1,5 @@
 import asyncio
+import os
 from delivery1_model import DeliveryModel
 from chat_model import ChatModel
 import json
@@ -551,7 +552,7 @@ def perform_network_action(addr, method, data=None):
         return None
 
 
-start_server = websockets.serve(launch, "0.0.0.0", 4321)
+start_server = websockets.serve(launch, "", int(os.environ["PORT"]))
 
 asyncio.get_event_loop().run_until_complete(start_server)
 asyncio.get_event_loop().run_forever()
