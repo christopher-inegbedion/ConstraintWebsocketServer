@@ -552,7 +552,7 @@ def perform_network_action(addr, method, data=None):
         return None
 
 
-start_server = websockets.serve(launch, "", int(os.environ["PORT"]))
+start_server = websockets.serve(launch, "0.0.0.0", 4321)
 
 asyncio.get_event_loop().run_until_complete(start_server)
 asyncio.get_event_loop().run_forever()
