@@ -177,7 +177,7 @@ async def update_complete_users_count(task_id, user_id):
 
 def get_constraint_config_inputs(constraint_name, stage_name, stage_group_id):
     stage_data = perform_network_action(
-        "http://constraint-rest-server.herokuapp.com:8000/stage_group/"+stage_group_id + "/"+stage_name, "get")
+        "http://localhost:8000/stage_group/"+stage_group_id + "/"+stage_name, "get")
     all_constraints = stage_data["constraints"]
     for constraint in all_constraints:
         if constraint["constraint_name"] == constraint_name:
@@ -202,7 +202,7 @@ async def launch(websocket, path):
             print(f"Creating new pipeline instance for user: {user_id}")
             # Get the task's details from the DB
             task_data = perform_network_action(
-                "http://constraint-rest-server.herokuapp.com:8000/task/"+task_id, "get")
+                "http://localhost:8000/task/"+task_id, "get")
             task_name = task_data["name"]
             task_desc = task_data["desc"]
             stage_group_id = task_data["stage_group_id"]
@@ -211,7 +211,7 @@ async def launch(websocket, path):
                 try:
                     new_task = Task(task_name, task_desc)
                     stage_group_data = perform_network_action(
-                        "http://constraint-rest-server.herokuapp.com:8000/stage_group/"+stage_group_id, "get")
+                        "http://localhost:8000/stage_group/"+stage_group_id, "get")
                     print("Stage group details retrieved from database...")
                     new_stage_groups = StageGroup()
                     stages = stage_group_data["stages"]
